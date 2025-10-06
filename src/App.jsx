@@ -734,26 +734,26 @@ const SmartFinanceManager = () => {
           darkMode ? "border-gray-700" : "border-gray-200"
         } sticky top-0 z-40 transition-all duration-300`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-14 sm:h-16">
             {/* Logo & Menu */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 sm:gap-4">
               <button
                 onClick={() => setSidebarOpen(!sidebarOpen)}
-                className={`lg:hidden p-2 rounded-xl ${
+                className={`lg:hidden p-1.5 sm:p-2 rounded-xl ${
                   darkMode ? "hover:bg-gray-700" : "hover:bg-indigo-50"
                 } transition-all`}
               >
-                {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
+                {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
               </button>
 
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-blue-600 flex items-center justify-center shadow-lg">
-                  <Wallet className="text-white" size={24} />
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-blue-600 flex items-center justify-center shadow-lg">
+                  <Wallet className="text-white" size={18} />
                 </div>
-                <div>
+                <div className="hidden sm:block">
                   <h1
-                    className={`text-lg font-bold ${
+                    className={`text-base sm:text-lg font-bold ${
                       darkMode ? "text-white" : "text-gray-900"
                     }`}
                   >
@@ -764,18 +764,18 @@ const SmartFinanceManager = () => {
             </div>
 
             {/* Right Side */}
-            <div className="flex items-center gap-2">
-              {/* Currency Selector */}
+            <div className="flex items-center gap-1 sm:gap-2">
+              {/* Currency Selector - Desktop Only */}
               <select
                 value={currency}
                 onChange={(e) => setCurrency(e.target.value)}
-                className={`hidden sm:block px-3 py-2 rounded-xl ${
+                className={`hidden md:block px-2 sm:px-3 py-1.5 sm:py-2 rounded-xl ${
                   darkMode
                     ? "bg-gray-700 text-white"
                     : "bg-indigo-50 text-gray-900"
-                } border-none outline-none cursor-pointer hover:scale-105 transition-all text-sm font-medium`}
+                } border-none outline-none cursor-pointer hover:scale-105 transition-all text-xs sm:text-sm font-medium`}
               >
-                {Object.entries(currencies).map(([code, { symbol, name }]) => (
+                {Object.entries(currencies).map(([code, { symbol }]) => (
                   <option key={code} value={code}>
                     {symbol} {code}
                   </option>
@@ -785,33 +785,37 @@ const SmartFinanceManager = () => {
               {/* Language Toggle */}
               <button
                 onClick={() => setLanguage(language === "en" ? "ar" : "en")}
-                className={`p-2 rounded-xl ${
+                className={`p-1.5 sm:p-2 rounded-xl ${
                   darkMode ? "hover:bg-gray-700" : "hover:bg-indigo-50"
                 } transition-all hover:scale-110`}
                 title={language === "en" ? "العربية" : "English"}
               >
-                <Globe size={20} />
+                <Globe size={18} className="sm:w-5 sm:h-5" />
               </button>
 
               {/* Dark Mode Toggle */}
               <button
                 onClick={() => setDarkMode(!darkMode)}
-                className={`p-2 rounded-xl ${
+                className={`p-1.5 sm:p-2 rounded-xl ${
                   darkMode ? "hover:bg-gray-700" : "hover:bg-indigo-50"
                 } transition-all hover:scale-110`}
               >
-                {darkMode ? <Sun size={20} /> : <Moon size={20} />}
+                {darkMode ? (
+                  <Sun size={18} className="sm:w-5 sm:h-5" />
+                ) : (
+                  <Moon size={18} className="sm:w-5 sm:h-5" />
+                )}
               </button>
 
               {/* Auth Buttons */}
               {!currentUser ? (
-                <div className="flex gap-2">
+                <div className="flex gap-1 sm:gap-2">
                   <button
                     onClick={() => {
                       setAuthMode("login");
                       setShowAuthModal(true);
                     }}
-                    className={`px-4 py-2 rounded-xl ${
+                    className={`px-2 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm ${
                       darkMode
                         ? "bg-gray-700 text-white hover:bg-gray-600"
                         : "bg-indigo-50 text-indigo-600 hover:bg-indigo-100"
@@ -824,23 +828,24 @@ const SmartFinanceManager = () => {
                       setAuthMode("signup");
                       setShowAuthModal(true);
                     }}
-                    className="px-4 py-2 rounded-xl bg-gradient-to-r from-indigo-500 to-blue-600 text-white font-medium shadow-lg hover:shadow-xl hover:scale-105 transition-all"
+                    className="px-2 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-gradient-to-r from-indigo-500 to-blue-600 text-white text-xs sm:text-sm font-medium shadow-lg hover:shadow-xl hover:scale-105 transition-all"
                   >
                     {t.signup}
                   </button>
                 </div>
               ) : (
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1 sm:gap-2">
+                  {/* User Avatar - Mobile Shows Only Avatar */}
                   <div
-                    className={`hidden sm:flex items-center gap-2 px-3 py-2 rounded-xl ${
+                    className={`flex items-center gap-2 px-2 py-1.5 sm:px-3 sm:py-2 rounded-xl ${
                       darkMode ? "bg-gray-700" : "bg-indigo-50"
                     }`}
                   >
-                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-blue-600 flex items-center justify-center text-white font-bold text-sm">
+                    <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-indigo-500 to-blue-600 flex items-center justify-center text-white font-bold text-xs sm:text-sm">
                       {currentUser.name[0].toUpperCase()}
                     </div>
                     <span
-                      className={`text-sm font-medium ${
+                      className={`hidden md:inline text-xs sm:text-sm font-medium ${
                         darkMode ? "text-white" : "text-gray-900"
                       }`}
                     >
@@ -849,14 +854,14 @@ const SmartFinanceManager = () => {
                   </div>
                   <button
                     onClick={handleLogout}
-                    className={`p-2 rounded-xl ${
+                    className={`p-1.5 sm:p-2 rounded-xl ${
                       darkMode
                         ? "hover:bg-gray-700 text-red-400"
                         : "hover:bg-red-50 text-red-600"
                     } transition-all hover:scale-110`}
                     title={t.logout}
                   >
-                    <LogOut size={20} />
+                    <LogOut size={18} className="sm:w-5 sm:h-5" />
                   </button>
                 </div>
               )}
